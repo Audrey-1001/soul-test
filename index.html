@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>心域共振 · 灵魂契合度深度测评</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background: #f2edf9;
+            font-family: system-ui, 'Segoe UI', 'Noto Sans CJK SC', Roboto, 'Helvetica Neue', sans-serif;
+            color: #1f172a;
+        }
+        .app-container {
+            max-width: 550px;
+            margin: 0 auto;
+            background: #ffffff;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+        }
+        .hero-header {
+            background: linear-gradient(135deg, #6b4c9a 0%, #4b2b6e 100%);
+            color: white;
+            padding: 24px 20px;
+            text-align: center;
+            border-radius: 0 0 28px 28px;
+        }
+        .hero-header h1 { font-size: 1.75rem; font-weight: 700; }
+        .hero-header p { opacity: 0.85; margin-top: 6px; font-size: 0.85rem; }
+        .main-card { flex: 1; padding: 28px 20px 40px; }
+        .btn-primary {
+            background: #6b4c9a;
+            border: none;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 14px 20px;
+            border-radius: 60px;
+            width: 100%;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: center;
+        }
+        .btn-primary:active { transform: scale(0.97); background: #4f3577; }
+        .opt-btn {
+            width: 100%;
+            background: #ffffff;
+            border: 2px solid #e5d9f5;
+            border-radius: 28px;
+            padding: 16px 20px;
+            text-align: left;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #2c1c45;
+            margin-bottom: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .opt-btn:active { background: #f5edff; border-color: #b392e0; }
+        .opt-marker {
+            background: #ede4ff;
+            width: 32px;
+            height: 32px;
+            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #4b2b6e;
+        }
+        .q-text {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: #2a1a44;
+            margin-bottom: 28px;
+        }
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #8f7aae;
+            font-size: 0.85rem;
+        }
+        .progress-bar-bg {
+            background: #ede6f7;
+            border-radius: 20px;
+            height: 6px;
+            flex: 1;
+            margin-left: 12px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background: #a07fd6;
+            width: 0%;
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.25s;
+        }
+        .result-card {
+            background: #fefbff;
+            border-radius: 32px;
+            padding: 24px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+            margin-top: 8px;
+        }
+        .type-badge {
+            background: #e9dfff;
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            color: #3a266b;
+            margin-bottom: 12px;
+        }
+        .rarity {
+            display: inline-block;
+            background: #ffeed9;
+            border-radius: 40px;
+            padding: 4px 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 12px;
+            color: #b45f1b;
+            vertical-align: middle;
+        }
+        .tag-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 16px 0;
+        }
+        .tag {
+            background: #f0e9ff;
+            border-radius: 40px;
+            padding: 6px 16px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #4a2b74;
+        }
+        .info-grid {
+            background: #f9f5ff;
+            border-radius: 24px;
+            padding: 16px;
+            margin: 18px 0;
+            border-left: 5px solid #9b7bcb;
+        }
+        .info-title {
+            font-weight: 800;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .dimension-bar { margin: 18px 0; }
+        .dim-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .bar-line {
+            height: 12px;
+            background: #e2d4f5;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .bar-fill {
+            background: #7c5bb0;
+            width: 0%;
+            height: 100%;
+            border-radius: 20px;
+        }
+        .energy-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 12px 0;
+        }
+        .energy-item {
+            background: #fff0e6;
+            border-radius: 20px;
+            padding: 10px 12px;
+            font-size: 0.85rem;
+        }
+        .share-buttons {
+            display: flex;
+            gap: 12px;
+            margin: 20px 0 12px;
+        }
+        .share-buttons .btn-primary { flex: 1; font-size: 0.9rem; padding: 12px 10px; }
+        .restart-btn {
+            background: transparent;
+            border: 2px solid #cbbaf0;
+            color: #4b2b6e;
+            margin-top: 10px;
+        }
+        .hidden { display: none; }
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #bbb0cf;
+            padding: 20px;
+        }
+        ul { padding-left: 20px; margin: 8px 0; }
+        li { margin: 6px 0; }
+        .error-message { color: #d32f2f; background: #ffebee; padding: 16px; border-radius: 24px; }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <div class="hero-header">
+        <h1>✨ 心域共振 ✨</h1>
+        <p>16型伴侣灵魂解码 · 深度完整版</p>
+    </div>
+
+    <div class="main-card">
+        <div id="startPanel">
+            <div style="text-align: center; margin: 40px 0 20px;">
+                <div style="font-size: 4rem;">💜</div>
+                <h2>你的灵魂引力场</h2>
+                <p style="color: #5e4b79;">40个走心选择 · 解锁专属伴侣类型 + 完全恋爱指南</p>
+            </div>
+            <button class="btn-primary" id="startBtn">开始深度测评 →</button>
+        </div>
+
+        <div id="quizPanel" class="hidden">
+            <div class="progress-info">
+                <span id="qCounter">0 / 40</span>
+                <div class="progress-bar-bg"><div class="progress-fill" id="quizProgressFill"></div></div>
+            </div>
+            <div class="q-text" id="questionText"></div>
+            <div id="optionsContainer"></div>
+        </div>
+
+        <div id="resultPanel" class="hidden">
+            <div id="resultCard" class="result-card"></div>
+            <div class="share-buttons">
+                <button class="btn-primary" id="copyTextBtn" style="background:#7a5aa8;">📋 复制摘要</button>
+                <button class="btn-primary" id="shareImgBtn" style="background:#7a5aa8;">🖼️ 截图分享</button>
+            </div>
+            <button class="btn-primary restart-btn" id="restartBtn">⟳ 重新测评</button>
+        </div>
+    </div>
+    <footer>心域共振 · 四维八极深度模型 | 为你定制的灵魂说明书</footer>
+</div>
+
+<script>
+    // 40题完整题库（与之前一致）
+    const QUESTIONS = [
+        { dim: "SI", text: "假期来临，你更倾向哪种安排？", opts: ["参加热闹音乐节/派对", "宅家看书或刷剧"] },
+        { dim: "SI", text: "遇到一群陌生朋友组局，你会？", opts: ["主动加入聊天", "安静观察"] },
+        { dim: "SI", text: "什么最能让你充电？", opts: ["和朋友聚餐", "独处冥想"] },
+        { dim: "SI", text: "社交媒体上你通常？", opts: ["频繁分享", "偶尔潜水"] },
+        { dim: "SI", text: "去咖啡馆你会？", opts: ["观察人群", "角落看书"] },
+        { dim: "SI", text: "伴侣提议去大型派对？", opts: ["兴奋", "想早回"] },
+        { dim: "SI", text: "旅行时喜欢？", opts: ["结交新朋友", "独自探索"] },
+        { dim: "SI", text: "对“受欢迎”的态度？", opts: ["享受", "重深度"] },
+        { dim: "SI", text: "开会/课堂上？", opts: ["积极发言", "成熟后说"] },
+        { dim: "SI", text: "一整天不说话？", opts: ["烦闷", "放松"] },
+        { dim: "KP", text: "重大决定依赖？", opts: ["数据分析", "直觉感受"] },
+        { dim: "KP", text: "看电影被什么打动？", opts: ["剧情逻辑", "情感冲击"] },
+        { dim: "KP", text: "伴侣情绪低落你先？", opts: ["分析解决", "拥抱安慰"] },
+        { dim: "KP", text: "购物看重？", opts: ["性价比", "喜欢就买"] },
+        { dim: "KP", text: "争议话题更认同？", opts: ["逻辑闭环", "理解立场"] },
+        { dim: "KP", text: "更开心哪种称赞？", opts: ["聪明有条理", "温暖有人情味"] },
+        { dim: "KP", text: "选书倾向？", opts: ["工具/逻辑书", "小说/诗集"] },
+        { dim: "KP", text: "对规则的态度？", opts: ["逻辑服人", "灵活打破"] },
+        { dim: "KP", text: "回忆过去记得？", opts: ["事实节点", "气氛情绪"] },
+        { dim: "KP", text: "爱更多是？", opts: ["责任契约", "浪漫冲动"] },
+        { dim: "AH", text: "面对未知机会？", opts: ["兴奋走起", "谨慎评估"] },
+        { dim: "AH", text: "理想旅行？", opts: ["无计划流浪", "攻略周全"] },
+        { dim: "AH", text: "高风险高回报？", opts: ["愿意赌", "稳健"] },
+        { dim: "AH", text: "最不能忍受？", opts: ["一成不变", "动荡失控"] },
+        { dim: "AH", text: "极限运动邀约？", opts: ["马上报名", "婉拒"] },
+        { dim: "AH", text: "点新餐厅？", opts: ["尝试怪菜", "点熟悉的"] },
+        { dim: "AH", text: "未来规划？", opts: ["随性惊喜", "3-5年计划"] },
+        { dim: "AH", text: "更吸引你的伴侣？", opts: ["带我冒险", "给我港湾"] },
+        { dim: "AH", text: "换工作/城市？", opts: ["期待新环境", "不安全感"] },
+        { dim: "AH", text: "理财风格？", opts: ["新兴领域", "低风险"] },
+        { dim: "LE", text: "伴侣伤心倾诉？", opts: ["分析问题", "共情拥抱"] },
+        { dim: "LE", text: "吵架后更容易？", opts: ["讲道理", "在意情绪"] },
+        { dim: "LE", text: "别人评价你？", opts: ["冷静理性", "温暖善解"] },
+        { dim: "LE", text: "帮助朋友倾向？", opts: ["解决方案", "倾听陪伴"] },
+        { dim: "LE", text: "喜欢的领导风格？", opts: ["公正制度", "感性关怀"] },
+        { dim: "LE", text: "看社会新闻关注？", opts: ["事实逻辑", "情感处境"] },
+        { dim: "LE", text: "规则公平性？", opts: ["铁面原则", "特殊共情"] },
+        { dim: "LE", text: "重要沟通能力？", opts: ["逻辑清晰", "感知情绪"] },
+        { dim: "LE", text: "理性vs感性", opts: ["理性可靠", "感性温度"] },
+        { dim: "LE", text: "伴侣忘纪念日更在意？", opts: ["不尊重约定", "爱被忽视"] }
+    ];
+
+    const TYPE_DEEP = {
+        "SKAL":{title:"皓月星穹·精神领袖型",tags:["高能领袖","策略家"],rarity:"SSR",desc:"外向·理性·冒险·逻辑 → 你拥有强大的气场与远见。",date:"高端社交酒会 / 密室复盘",loveTip:"给彼此独立闪耀的空间",avoid:["打断计划","过度依赖"],growth:["倾听情绪","享受无目的"],challenge:"做一件与效率无关的小事",energy:{passion:95,stable:70,romantic:60,spiritual:90,daily:65},motto:"我要的不是崇拜，是并肩改写规则。",ideal:"IPAL · SKHL",pressure:"IPHE"},
+        "SKAH":{title:"蝶梦引路人·热情催化者",tags:["社交太阳","共情先锋"],rarity:"SR",desc:"外向·理性·冒险·共情 → 浪漫与理性交织。",date:"即兴戏剧 / 海边落日",loveTip:"用逻辑解决，但先拥抱",avoid:["否定社交","冷战"],growth:["慢下来","不必总做气氛担当"],challenge:"不拍照的深度散步",energy:{passion:92,stable:55,romantic:85,spiritual:80,daily:70},motto:"热情是我的燃料，你是降落的原因。",ideal:"SPAH · IKAH",pressure:"IKHL"},
+        "SKHL":{title:"极光守护使·智慧引领者",tags:["稳重智者","秩序控"],rarity:"SR",desc:"外向·理性·安稳·逻辑 → 稳健中带着果断。",date:"美术馆导览 / 策略桌游",loveTip:"规划未来时留出即兴缝隙",avoid:["突然改计划","不守时"],growth:["允许小冒险","直接表达爱意"],challenge:"打破常规去个小众地点",energy:{passion:65,stable:92,romantic:70,spiritual:75,daily:88},motto:"秩序中开出温柔的花。",ideal:"SKAL · IKHL",pressure:"SPAH"},
+        "SKHE":{title:"暖风叙诗人·感性外交家",tags:["治愈系","社交蝴蝶"],rarity:"R",desc:"外向·理性·安稳·共情 → 天生的关系粘合剂。",date:"植物园漫步 / 烘焙课",loveTip:"主动制造惊喜小仪式",avoid:["敷衍分享","忽略仪式"],growth:["设温柔边界","接受被照顾"],challenge:"请伴侣帮个小忙并感谢",energy:{passion:70,stable:85,romantic:88,spiritual:70,daily:90},motto:"温柔是我最大的力量。",ideal:"SPHE · IKHE",pressure:"IKAL"},
+        "SPAL":{title:"赤焰探险家·破局革新者",tags:["自由魂","挑战者"],rarity:"UR",desc:"外向·感性·冒险·逻辑 → 自由不羁，用直觉冲浪。",date:"跳伞 / 音乐节VIP",loveTip:"尊重独立，也要做安全网",avoid:["控制行踪","否定冒险"],growth:["提前告知计划","给安全感"],challenge:"尝试对方喜欢的安静活动",energy:{passion:98,stable:30,romantic:75,spiritual:85,daily:40},motto:"生命是旷野，不是轨道。",ideal:"IPAL · SKAL",pressure:"IKHE"},
+        "SPAH":{title:"流光诗人·灵感缪斯",tags:["艺术灵魂","浪漫至死"],rarity:"SR",desc:"外向·感性·冒险·共情 → 极致浪漫体验家。",date:"画室共创 / 午夜观星",loveTip:"不要压抑浪漫，但要筛选能接住的人",avoid:["嘲笑理想主义","冷处理"],growth:["建情绪锚点","记录灵感"],challenge:"写一首短诗或小卡片",energy:{passion:90,stable:40,romantic:98,spiritual:92,daily:55},motto:"你是我的诗，我是你不必押韵的自由。",ideal:"SKAH · IPAH",pressure:"SKHL"},
+        "SPHL":{title:"静湖智士·温柔实干家",tags:["沉稳浪漫","生活美学家"],rarity:"R",desc:"外向·感性·安稳·逻辑 → 感性之下藏着逻辑骨架。",date:"逛家居店 / 徒步",loveTip:"用行动表达，也直接说出需求",avoid:["打乱收纳","承诺不兑现"],growth:["主动安排惊喜","直接表达爱意"],challenge:"做一顿完整晚饭",energy:{passion:65,stable:85,romantic:75,spiritual:70,daily:88},motto:"生活的质感在细节里。",ideal:"SKHE · IPHL",pressure:"SPAL"},
+        "SPHE":{title:"晨露治愈者·安恬共情体",tags:["阳光甜心","和平大使"],rarity:"N",desc:"外向·感性·安稳·共情 → 阳光般的调和者。",date:"野餐+拍立得 / 陶艺",loveTip:"善良要有边界",avoid:["大声争吵","忽冷忽热"],growth:["练习说‘不’","培养独立爱好"],challenge:"为自己安排独处半日",energy:{passion:60,stable:80,romantic:85,spiritual:65,daily:90},motto:"我的快乐很简单，只要你也在笑。",ideal:"SKHE · IKHE",pressure:"SPAL"},
+        "IKAL":{title:"隐世哲人·深邃洞察者",tags:["极简智慧","精神冒险"],rarity:"UR",desc:"内向·理性·冒险·逻辑 → 需要精神对手型恋人。",date:"古董书店 / 深夜辩论",loveTip:"保持智性张力",avoid:["强行社交","打断思考"],growth:["分享内心感受","尝试感性决策"],challenge:"只谈感受的对话",energy:{passion:70,stable:60,romantic:55,spiritual:98,daily:50},motto:"灵魂的共鸣，胜过千言万语。",ideal:"SKAL · IPAL",pressure:"SPHE"},
+        "IKAH":{title:"月光叙事者·沉静诗心",tags:["敏感诗人","深度聆听"],rarity:"SR",desc:"内向·理性·冒险·共情 → 冷淡外表炽热内心。",date:"民谣live / 书信日记",loveTip:"表达不拘形式，但要独特专注",avoid:["轻视敏感","秘密隐瞒"],growth:["主动袒露脆弱","用行动表达爱"],challenge:"手写一封信邮寄",energy:{passion:55,stable:65,romantic:92,spiritual:90,daily:60},motto:"你读懂我的沉默，我便赠你星河。",ideal:"SPAH · IPAH",pressure:"SKHL"},
+        "IKHL":{title:"磐石架构师·秩序领航员",tags:["逻辑基石","可靠伙伴"],rarity:"R",desc:"内向·理性·安稳·逻辑 → 极致理性，可靠支柱。",date:"科技馆+纪录片",loveTip:"偶尔放下逻辑，盲选礼物",avoid:["打乱计划","情绪化"],growth:["即兴回应情感","无目的相处"],challenge:"策划一次无议程约会",energy:{passion:45,stable:95,romantic:40,spiritual:70,daily:85},motto:"我的爱藏在兑现的承诺里。",ideal:"SKHL · IPHL",pressure:"SPAH"},
+        "IKHE":{title:"绒心守望者·忠实行者",tags:["忠诚陪伴","沉默守护"],rarity:"R",desc:"内向·理性·安稳·共情 → 安静但温柔坚定。",date:"一起做饭+电影",loveTip:"主动说出感谢",avoid:["忽视付出","突然改习惯"],growth:["定期表达需求","尝试带领"],challenge:"邀请朋友来家里做客",energy:{passion:40,stable:90,romantic:70,spiritual:75,daily:92},motto:"我的守护无声，但你一定感受得到。",ideal:"SKHE · IPHE",pressure:"SPAL"},
+        "IPAL":{title:"独行极客·奇想探险家",tags:["叛逆脑洞","自由实验"],rarity:"UR",desc:"内向·感性·冒险·逻辑 → 永远追求独特体验。",date:"废弃工厂探险 / 凌晨看海",loveTip:"尊重怪癖，建立暗号",avoid:["试图纠正独特","限制独处"],growth:["分享情绪","建规律习惯"],challenge:"带伴侣完成脑洞小计划",energy:{passion:88,stable:35,romantic:65,spiritual:85,daily:30},motto:"我的路自己画。",ideal:"SKAL · SPAL",pressure:"SKHE"},
+        "IPAH":{title:"幻梦织灵者·灵魂艺术者",tags:["超感者","柔软治愈"],rarity:"SR",desc:"内向·感性·冒险·共情 → 内在世界绚烂。",date:"沉浸式戏剧 / 森林冥想",loveTip:"为情绪建安全出口",avoid:["评价‘想太多’","强迫现实"],growth:["定期创作","三句话总结情绪"],challenge:"布置共创角",energy:{passion:75,stable:45,romantic:96,spiritual:95,daily:50},motto:"我的梦很大，但也留了位置给你。",ideal:"IKAH · SPAH",pressure:"SKHL"},
+        "IPHL":{title:"澄明隐者·冷思建筑师",tags:["内外反差","理性隐者"],rarity:"R",desc:"内向·感性·安稳·逻辑 → 理智和感性交织。",date:"科技展+清吧 / 露营",loveTip:"定期无目的日",avoid:["闯入空间","情感索取"],growth:["主动柔软","偶尔邀约"],challenge:"全权规划一次小旅行",energy:{passion:50,stable:85,romantic:60,spiritual:75,daily:80},motto:"最舒服的关系是不用刻意找话题。",ideal:"SKHL · IKHL",pressure:"SPAH"},
+        "IPHE":{title:"温谷牧心人·至纯治愈者",tags:["大地之爱","无条件接纳"],rarity:"N",desc:"内向·感性·安稳·共情 → 像森林深处的清泉。",date:"农场义工 / 安静茶馆",loveTip:"温和表达自己的需求",avoid:["欺骗","高强社交"],growth:["直接说‘我需要’","自我肯定清单"],challenge:"向伴侣提出一个具体需求",energy:{passion:35,stable:90,romantic:75,spiritual:80,daily:95},motto:"我用温柔拥抱世界，也请你温柔抱紧我。",ideal:"SKHE · IKHE",pressure:"SPAL"}
+    };
+
+    let currentIndex = 0, answers = [], scores = { S:0, I:0, K:0, P:0, A:0, H:0, L:0, E:0 };
+    const startPanelDiv = document.getElementById('startPanel');
+    const quizPanelDiv = document.getElementById('quizPanel');
+    const resultPanelDiv = document.getElementById('resultPanel');
+    const startBtnEl = document.getElementById('startBtn');
+    const restartBtnEl = document.getElementById('restartBtn');
+    const questionTextEl = document.getElementById('questionText');
+    const optionsContainerEl = document.getElementById('optionsContainer');
+    const qCounterSpan = document.getElementById('qCounter');
+    const progressFillEl = document.getElementById('quizProgressFill');
+    const resultCardEl = document.getElementById('resultCard');
+    const copyBtnEl = document.getElementById('copyTextBtn');
+    const shareBtnEl = document.getElementById('shareImgBtn');
+
+    function updateProgress() { let p = (currentIndex/40)*100; progressFillEl.style.width = p+"%"; qCounterSpan.innerText = `${currentIndex}/40`; }
+    function renderQuestion() {
+        if(currentIndex>=40) { finishTest(); return; }
+        let q = QUESTIONS[currentIndex];
+        questionTextEl.innerText = q.text;
+        optionsContainerEl.innerHTML = '';
+        q.opts.forEach((opt,idx)=>{
+            let btn = document.createElement('button'); btn.className='opt-btn';
+            btn.innerHTML = `<span class="opt-marker">${idx===0?'A':'B'}</span><span>${opt}</span>`;
+            btn.onclick = ()=>{
+                answers.push(idx);
+                let selected = idx===0 ? q.dim[0] : q.dim[1];
+                scores[selected]++;
+                currentIndex++;
+                updateProgress();
+                if(currentIndex<40) renderQuestion(); else finishTest();
+            };
+            optionsContainerEl.appendChild(btn);
+        });
+        updateProgress();
+    }
+    function finishTest() {
+        let code = (scores.S>=scores.I?'S':'I') + (scores.K>=scores.P?'K':'P') + (scores.A>=scores.H?'A':'H') + (scores.L>=scores.E?'L':'E');
+        let data = TYPE_DEEP[code] || TYPE_DEEP["IPHE"];
+        let siP = Math.max(scores.S,scores.I)/10*100, kpP = Math.max(scores.K,scores.P)/10*100, ahP = Math.max(scores.A,scores.H)/10*100, leP = Math.max(scores.L,scores.E)/10*100;
+        let siTxt = scores.S>=scores.I ? `外向·社交引力 (S ${scores.S} : I ${scores.I})` : `内向·深度自省 (I ${scores.I} : S ${scores.S})`;
+        let kpTxt = scores.K>=scores.P ? `理性·逻辑框架 (K ${scores.K} : P ${scores.P})` : `感性·情感共振 (P ${scores.P} : K ${scores.K})`;
+        let ahTxt = scores.A>=scores.H ? `开拓·冒险精神 (A ${scores.A} : H ${scores.H})` : `安稳·务实宁静 (H ${scores.H} : A ${scores.A})`;
+        let leTxt = scores.L>=scores.E ? `思辨·原则架构 (L ${scores.L} : E ${scores.E})` : `共情·温柔疗愈 (E ${scores.E} : L ${scores.L})`;
+        let energyHtml = `<div class="energy-grid"><div class="energy-item">🔥激情:${data.energy.passion}/100</div><div class="energy-item">⚓稳定:${data.energy.stable}/100</div><div class="energy-item">🌹浪漫:${data.energy.romantic}/100</div><div class="energy-item">🧠精神:${data.energy.spiritual}/100</div><div class="energy-item">🍳日常:${data.energy.daily}/100</div></div>`;
+        resultCardEl.innerHTML = `
+            <div style="display:flex;align-items:baseline;flex-wrap:wrap;"><span class="type-badge">${code}</span><span class="rarity">${data.rarity}</span></div>
+            <div class="tag-group">${data.tags.map(t=>`<span class="tag">#${t}</span>`).join('')}</div>
+            <div><strong>${data.title}</strong><br>${data.desc}</div>
+            <div class="dimension-bar"><div class="dim-label"><span>🧬 ${siTxt}</span><span>${Math.round(siP)}%</span></div><div class="bar-line"><div class="bar-fill" style="width:${siP}%"></div></div></div>
+            <div class="dimension-bar"><div class="dim-label"><span>🎯 ${kpTxt}</span><span>${Math.round(kpP)}%</span></div><div class="bar-line"><div class="bar-fill" style="width:${kpP}%;background:#9b7bcb"></div></div></div>
+            <div class="dimension-bar"><div class="dim-label"><span>⛰️ ${ahTxt}</span><span>${Math.round(ahP)}%</span></div><div class="bar-line"><div class="bar-fill" style="width:${ahP}%;background:#b694e6"></div></div></div>
+            <div class="dimension-bar"><div class="dim-label"><span>💞 ${leTxt}</span><span>${Math.round(leP)}%</span></div><div class="bar-line"><div class="bar-fill" style="width:${leP}%;background:#ccb0ff"></div></div></div>
+            <div class="info-grid"><div class="info-title">🌸约会灵感</div>${data.date}</div>
+            <div class="info-grid"><div class="info-title">💌爱情心法</div>${data.loveTip}</div>
+            <div class="info-grid"><div class="info-title">⚠️相处雷区</div><ul>${data.avoid.map(a=>`<li>${a}</li>`).join('')}</ul></div>
+            <div class="info-grid"><div class="info-title">📈成长建议</div><ul>${data.growth.map(g=>`<li>${g}</li>`).join('')}</ul></div>
+            <div class="info-grid"><div class="info-title">🎯月度小挑战</div>${data.challenge}</div>
+            <div class="info-grid"><div class="info-title">⚡恋爱五维能量图</div>${energyHtml}</div>
+            <div class="info-grid"><div class="info-title">📜专属情话/座右铭</div>“${data.motto}”</div>
+            <div class="info-grid" style="background:#eef3ff;"><div class="info-title">💞最佳配对</div>${data.ideal}<br><div class="info-title" style="margin-top:8px;">⚡压力配对</div>${data.pressure}</div>
+        `;
+        startPanelDiv.classList.add('hidden'); quizPanelDiv.classList.add('hidden'); resultPanelDiv.classList.remove('hidden');
+        document.querySelector('.hero-header h1').innerText = "✨ 灵魂解析报告 ✨";
+        document.querySelector('.hero-header p').innerText = "你的专属恋爱指南";
+    }
+    function resetAndStart() {
+        currentIndex=0; answers=[]; scores={S:0,I:0,K:0,P:0,A:0,H:0,L:0,E:0};
+        startPanelDiv.classList.remove('hidden'); quizPanelDiv.classList.add('hidden'); resultPanelDiv.classList.add('hidden');
+        document.querySelector('.hero-header h1').innerText = "✨ 心域共振 ✨";
+        document.querySelector('.hero-header p').innerText = "16型伴侣灵魂解码 · 深度完整版";
+        updateProgress(); renderQuestion();
+    }
+    startBtnEl.onclick = resetAndStart;
+    restartBtnEl.onclick = resetAndStart;
+    copyBtnEl.onclick = () => { navigator.clipboard.writeText(resultCardEl.innerText).then(()=>alert('✅报告已复制')).catch(()=>alert('复制失败')); };
+    shareBtnEl.onclick = () => alert('📸 请使用手机/电脑截图保存分享');
+    updateProgress();
+</script>
+</body>
+</html>
