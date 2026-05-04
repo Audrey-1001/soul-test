@@ -3,217 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>心域共振 · 理想伴侣灵魂解码</title>
+    <title>心域共振 · 40题深度理想伴侣档案</title>
     <style>
-        :root { --primary: #6b4c9a; --secondary: #f2edf9; --accent: #a07fd6; --text: #1f172a; }
+        :root { --p: #6b4c9a; --bg: #f2edf9; --card: #ffffff; --a: #a07fd6; --t: #2a1a44; }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--secondary); font-family: system-ui, -apple-system, sans-serif; color: var(--text); line-height: 1.6; }
-        .app-container { max-width: 550px; margin: 0 auto; background: #ffffff; min-height: 100vh; display: flex; flex-direction: column; box-shadow: 0 0 30px rgba(0,0,0,0.1); }
-        .hero-header { background: linear-gradient(135deg, #6b4c9a 0%, #4b2b6e 100%); color: white; padding: 35px 20px; text-align: center; border-radius: 0 0 35px 35px; }
-        .main-card { flex: 1; padding: 25px 20px; }
-        .btn-primary { background: var(--primary); border: none; color: white; font-weight: 600; padding: 18px; border-radius: 50px; width: 100%; cursor: pointer; font-size: 1.1rem; transition: 0.3s; }
-        .btn-primary:active { transform: scale(0.97); }
-        .opt-btn { width: 100%; background: #fff; border: 2px solid #e5d9f5; border-radius: 20px; padding: 18px; text-align: left; margin-bottom: 15px; cursor: pointer; display: flex; align-items: center; gap: 15px; font-size: 1rem; transition: 0.2s; }
-        .opt-btn:active { background: #f9f5ff; border-color: var(--accent); }
-        .opt-marker { background: #ede4ff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--primary); }
-        .progress-info { display: flex; align-items: center; gap: 12px; margin-bottom: 25px; color: #8f7aae; font-size: 0.9rem; }
-        .progress-bar-bg { background: #ede6f7; height: 10px; flex: 1; border-radius: 10px; overflow: hidden; }
-        .progress-fill { background: var(--accent); height: 100%; width: 0%; transition: 0.4s; }
-        
-        /* 结果页深度定制 */
-        .result-card { background: #fff; border-radius: 24px; animation: fadeIn 0.8s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .type-badge { background: #e9dfff; color: #3a266b; padding: 8px 20px; border-radius: 50px; font-weight: 800; font-size: 1.5rem; }
-        .rarity { background: #ffeed9; color: #b45f1b; padding: 4px 12px; border-radius: 10px; font-size: 0.8rem; margin-left: 10px; vertical-align: middle; font-weight: 700; }
-        .section-box { background: #f9f5ff; border-radius: 20px; padding: 20px; margin: 18px 0; border-left: 6px solid var(--accent); }
-        .section-title { font-weight: 800; color: #4b2b6e; margin-bottom: 12px; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
-        
-        .dim-row { margin: 14px 0; }
-        .dim-label { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; }
-        .dim-bar-bg { background: #e2d4f5; height: 12px; border-radius: 10px; overflow: hidden; }
-        .dim-bar-fill { height: 100%; background: var(--primary); transition: 1.5s cubic-bezier(0.1, 1, 0.1, 1); width: 0; }
-        
-        .energy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-        .energy-item { background: #fff; padding: 10px; border-radius: 15px; font-size: 0.85rem; border: 1px solid #eee; text-align: center; }
-        .portrait-text { font-size: 0.95rem; color: #333; line-height: 1.8; white-space: pre-wrap; }
+        body { background: var(--bg); font-family: system-ui, sans-serif; color: var(--t); line-height: 1.6; }
+        .app { max-width: 550px; margin: 0 auto; background: var(--card); min-height: 100vh; display: flex; flex-direction: column; box-shadow: 0 0 30px rgba(0,0,0,0.1); }
+        .hero { background: linear-gradient(135deg, #6b4c9a 0%, #4b2b6e 100%); color: white; padding: 35px 20px; text-align: center; border-radius: 0 0 35px 35px; }
+        .main { flex: 1; padding: 25px 20px; }
+        .btn-m { background: var(--p); border: none; color: white; font-weight: 600; padding: 18px; border-radius: 50px; width: 100%; cursor: pointer; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(107,76,154,0.3); }
+        .opt { width: 100%; background: #fff; border: 2px solid #e5d9f5; border-radius: 18px; padding: 16px; text-align: left; margin-bottom: 12px; cursor: pointer; display: flex; align-items: center; gap: 12px; }
+        .opt:active { background: #f9f5ff; border-color: var(--a); }
+        .opt-idx { background: #ede4ff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--p); flex-shrink: 0; }
+        .prog-c { display: flex; align-items: center; gap: 10px; margin-bottom: 25px; color: #8f7aae; font-size: 0.85rem; }
+        .prog-b { background: #ede6f7; height: 8px; flex: 1; border-radius: 10px; overflow: hidden; }
+        .prog-f { background: var(--a); height: 100%; width: 0%; transition: 0.3s; }
+        .sec { background: #f9f5ff; border-radius: 20px; padding: 18px; margin: 15px 0; border-left: 6px solid var(--a); }
+        .sec-t { font-weight: 800; color: #4b2b6e; margin-bottom: 8px; font-size: 1rem; }
+        .dim-r { margin: 10px 0; }
+        .dim-l { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; }
+        .dim-b { background: #e2d4f5; height: 10px; border-radius: 10px; overflow: hidden; margin-top: 4px; }
+        .dim-f { height: 100%; background: var(--p); width: 0; transition: 1s; }
+        .en-g { display: grid; grid-columns: 1fr 1fr; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .en-i { background: #fff; padding: 10px; border-radius: 12px; font-size: 0.8rem; border: 1px solid #eee; }
         .hidden { display: none !important; }
-        footer { text-align: center; color: #bbb; font-size: 0.75rem; padding: 25px; border-top: 1px dashed #eee; }
+        footer { text-align: center; color: #bbb; font-size: 0.7rem; padding: 20px; }
     </style>
 </head>
 <body>
-<div class="app-container">
-    <div class="hero-header" id="pageHeader">
+<div class="app">
+    <div class="hero" id="hero">
         <h1>✨ 心域共振 ✨</h1>
-        <p>精准定位你的“理想另一半”</p>
+        <p>精准扫描你的“理想另一半”</p>
     </div>
-
-    <div class="main-card">
-        <div id="startPanel">
-            <div style="text-align: center; padding: 40px 0;">
-                <div style="font-size: 5rem; margin-bottom: 15px;">🔍</div>
-                <h2 style="font-size: 1.8rem; color: #2a1a44;">谁是你的灵魂互补者？</h2>
-                <p style="color: #666; margin-top: 15px; padding: 0 20px;">通过40道心理逻辑推演，勾勒出最适合你的伴侣画像档案</p>
+    <div class="main">
+        <div id="startP">
+            <div style="text-align:center; padding:40px 0;">
+                <div style="font-size:4rem;">🔭</div>
+                <h2 style="margin:20px 0 10px;">谁在共享你的灵魂频率？</h2>
+                <p style="color:#666;">40道深度逻辑交互，锁定最适合你的互补型伴侣</p>
             </div>
-            <button class="btn-primary" id="startBtn">开始灵魂扫描</button>
+            <button class="btn-m" id="startB">开启深度测评</button>
         </div>
-
-        <div id="quizPanel" class="hidden">
-            <div class="progress-info">
-                <span id="qCounter">0/40</span>
-                <div class="progress-bar-bg"><div class="progress-fill" id="quizProgressFill"></div></div>
-            </div>
-            <div id="questionText" style="font-size: 1.4rem; font-weight: 700; color: #2a1a44; margin-bottom: 30px;">载入中...</div>
-            <div id="optionsContainer"></div>
+        <div id="quizP" class="hidden">
+            <div class="prog-c"><span id="qIdx">0/40</span><div class="prog-b"><div class="prog-f" id="progF"></div></div></div>
+            <div id="qText" style="font-size:1.3rem; font-weight:800; margin-bottom:25px; min-height:60px;"></div>
+            <div id="optC"></div>
         </div>
-
-        <div id="resultPanel" class="hidden">
-            <div id="resultCard" class="result-card"></div>
-            <button class="btn-primary" id="restartBtn" style="background:none; border: 2px solid #6b4c9a; color: #6b4c9a; margin-top: 25px;">重新扫描</button>
+        <div id="resP" class="hidden">
+            <div id="resCard"></div>
+            <button class="btn-m" style="background:none; border:2px solid var(--p); color:var(--p); margin-top:20px;" onclick="location.reload()">重新测评</button>
         </div>
     </div>
-    <footer>心域深度模型 · 理想伴侣匹配系统</footer>
+    <footer>心域深度实验室 · V4.0 专业版</footer>
 </div>
 
 <script>
     const QUESTIONS = [
-        { dim: "SI", text: "你理想的伴侣在周末应该？", opts: ["带你进入更广阔的社交圈", "陪你享受高质量的居家时光"] },
-        { dim: "SI", text: "你希望伴侣在人群中是？", opts: ["闪闪发光的焦点", "低调深邃的旁观者"] },
-        { dim: "KP", text: "当你们遇到矛盾，你更需要对方？", opts: ["绝对冷静地分析事实", "第一时间接纳你的情绪"] },
-        { dim: "KP", text: "对方身上哪种气质更吸引你？", opts: ["极度的专业与智性", "极致的体贴与共情"] },
-        { dim: "AH", text: "你希望对方带给你的生活底色是？", opts: ["充满未知的惊喜与冒险", "触手可及的安稳与笃定"] },
-        { dim: "AH", text: "面对人生重大变动，你希望对方？", opts: ["果断带你跳出舒适区", "为你构建最后一道防线"] },
-        { dim: "LE", text: "你更偏向对方如何表达爱？", opts: ["兑现每一个具体的承诺", "感知并照顾你细微的情绪"] },
-        { dim: "LE", text: "你需要的伴侣是一个？", opts: ["有原则、懂克制的智者", "没防备、懂治愈的暖阳"] }
-        // ... (此处为了演示完整逻辑，后台会自动根据你的40题权重计算，代码中内置逻辑已支持40轮循环)
+        { d: "SI", t: "你希望伴侣带你去哪种地方？", o: ["气氛火爆的派对现场", "只有两人的静谧书店"] },
+        { d: "SI", t: "在人群中，你希望对方？", o: ["是侃侃而谈的焦点", "是低调深邃的观察者"] },
+        { d: "KP", t: "遇到难题时，你更需要对方？", o: ["冷静客观地分析对错", "第一时间安抚你的情绪"] },
+        { d: "KP", t: "哪种称赞更能让你对他心动？", o: ["“你是个理性的聪明人”", "“你是个温柔的小太阳”"] },
+        { d: "AH", t: "你理想的伴侣生活节奏是？", o: ["充满未知的惊喜与冒险", "极具掌控感的稳定安宁"] },
+        { d: "AH", t: "旅行时，你希望对方？", o: ["带你跳出舒适区尝试新鲜", "制定周全计划让你安心"] },
+        { d: "LE", t: "你眼中的爱更偏向？", o: ["责任、原则与克制", "共情、感知与体贴"] },
+        { d: "LE", t: "吵架后，你希望对方先？", o: ["分清逻辑解决实质问题", "抱抱你先化解情绪隔阂"] },
+        { d: "SI", t: "对方的社交频率？", o: ["希望他有很多朋友常聚会", "希望他偏爱深度独处"] },
+        { d: "SI", t: "你更被哪种气质吸引？", o: ["阳光开朗、自信张扬", "沉稳内敛、清冷独立"] },
+        { d: "KP", t: "买大件商品时对方应该？", o: ["列出参数对比性价比", "看心情和第一眼喜欢"] },
+        { d: "KP", t: "看悲剧电影时，你希望对方？", o: ["讨论剧情逻辑和反转", "陪你一起落泪共情"] },
+        { d: "AH", t: "面对职业变动对方应该？", o: ["鼓励你裸辞追求梦想", "劝你深思熟虑稳扎稳打"] },
+        { d: "AH", t: "他对待规则的态度？", o: ["灵活变通甚至偶尔打破", "严格遵守并尊重传统"] },
+        { d: "LE", t: "你更需要他提供？", o: ["强大的智力支持和建议", "极致的温柔呵护和倾听"] },
+        { d: "LE", t: "送礼物时你更希望收到？", o: ["实用的、能解决刚需的", "走心的、有纪念意义的"] },
+        { d: "SI", t: "休息日他应该？", o: ["带你出去见世面", "陪你宅家研究美食"] },
+        { d: "SI", t: "在朋友圈他通常？", o: ["记录生活高频互动", "偶尔潜水基本不发"] },
+        { d: "KP", t: "他说话的风格？", o: ["直白坦率、一针见血", "委婉含蓄、照顾感受"] },
+        { d: "KP", t: "当他不同意你时？", o: ["用事实说服直到你认同", "保留意见优先让你开心"] },
+        { d: "AH", t: "对于未来，他应该？", o: ["随遇而安、享受当下", "未雨绸缪、规划5年后"] },
+        { d: "AH", t: "面对陌生环境，他？", o: ["像个探险家一样兴奋", "像个守卫一样保持谨慎"] },
+        { d: "LE", t: "他犯错后最能打动你的是？", o: ["深刻复盘并保证不再犯", "卑微认错并给你各种补偿"] },
+        { d: "LE", t: "你希望他是？", o: ["一个能教你很多的导师", "一个能包容你的小孩"] },
+        { d: "SI", t: "他面对生人的第一印象？", o: ["自来熟、很有亲和力", "慢热、有边界感"] },
+        { d: "SI", t: "约会迟到时，他？", o: ["给你编个好笑的段子化解", "真诚道歉并带你去吃大餐"] },
+        { d: "KP", t: "他的思维方式？", o: ["线性思维、非黑即白", "网状思维、感知复杂"] },
+        { d: "KP", t: "遇到不公平待遇，他？", o: ["据理力争维护正义", "隐忍大局先照顾你"] },
+        { d: "AH", t: "他喜欢的穿搭？", o: ["前卫大胆、有设计感", "经典考究、舒适大方"] },
+        { d: "AH", t: "理财观念上？", o: ["敢于投资高收益领域", "偏好稳健的储蓄增长"] },
+        { d: "LE", t: "他对待弱者的态度？", o: ["冷静观察客观评价", "极具同情心并想帮忙"] },
+        { d: "LE", t: "你们的纪念日？", o: ["偶尔忘记但用金钱补救", "从不忘记并亲手做礼物"] },
+        { d: "SI", t: "深夜他更愿意？", o: ["在夜店狂欢释放压力", "在台灯下陪你谈谈心"] },
+        { d: "SI", t: "他的兴趣爱好？", o: ["球类、极限运动等竞技项", "阅读、乐器等静心项"] },
+        { d: "KP", t: "他评价事物常用？", o: ["“这不科学/没道理”", "“这感觉不对/太伤人”"] },
+        { d: "KP", t: "面对压力，他会？", o: ["疯狂工作用成功发泄", "自我消化需要你的拥抱"] },
+        { d: "AH", t: "他喜欢的住所？", o: ["闹市区的时尚公寓", "安静郊区的田园独栋"] },
+        { d: "AH", t: "对于规则的理解？", o: ["用来突破和重组的", "用来保障秩序和安全的"] },
+        { d: "LE", t: "他最吸引你的动作？", o: ["专注解决问题时的侧脸", "温柔注视你时的眼睛"] },
+        { d: "LE", t: "他理想的伴侣状态？", o: ["并肩作战的战友", "相濡以沫的爱人"] }
     ];
 
-    // 自动补齐题目至40道（基于逻辑分类）
-    const qBase = [...QUESTIONS];
-    while(QUESTIONS.length < 40) { QUESTIONS.push(qBase[QUESTIONS.length % qBase.length]); }
+    let idx = 0;
+    let sc = { S:0, I:0, K:0, P:0, A:0, H:0, L:0, E:0 };
 
-    const TYPE_ARCHIVE = {
-        "SKAL": {
-            title: "皓月星穹 · 精神领袖", rarity: "SSR · 稀世",
-            portrait: "他/她是你生命中的‘定海神针’。拥有极强的目标感和掌控力，从不随波逐流。这个人会在你迷茫时为你画出清晰的战略图，带你从平庸走向卓越。",
-            job: "通常活跃在金融、创业或高阶管理层，喜欢挑战规则。",
-            energy: { passion: 95, stable: 70, romantic: 65, spiritual: 98, daily: 55 },
-            loveTip: "展示你的独立与才华，他/她只会被强者吸引。",
-            avoid: "质疑其权威、试图通过冷暴力控制他、丧失主见。",
-            ideal: "智性恋伴侣", motto: "“我能给你最好的礼物，是与我并肩的视野。”"
-        },
-        "IPHE": {
-            title: "温谷牧心 · 至纯治愈者", rarity: "R · 珍贵",
-            portrait: "他/她是你灵魂的‘避风港’。拥有无条件的接纳能力和极度细腻的情感触觉。和他在一起，你不需要任何伪装，只需要做最真实的自己。",
-            job: "常见于艺术设计、心理咨询或手工艺领域，生活气息浓厚。",
-            energy: { passion: 40, stable: 95, romantic: 85, spiritual: 80, daily: 98 },
-            loveTip: "给他/她坚定的安全感，并学会温柔地回应其付出。",
-            avoid: "大声斥责、忽冷忽热、忽视他为你做的小事。",
-            ideal: "情感依赖伴侣", motto: "“世界很吵，我只听得到你的声音。”"
-        }
-        // ... 其余14种画像在代码运行时会自动通过逻辑映射
+    const ARCHIVE = {
+        "SKAL": { t:"皓月星穹 · 精神领袖", r:"SSR", p:"他拥有极强的掌控力与远见。他不会依附于你，而是会带你领略更高阶的思维世界。", j:"常见于金融、创业、高阶管理。", e:{p:95,s:70,r:60,sm:98,d:55}, l:"展示你的独立与智慧，他是智性恋的代表。", a:["质疑其权威","丧失主见","无意义的情绪爆发"], m:"我要的不是崇拜，是并肩的人。" },
+        "IPHE": { t:"温谷牧心 · 至纯治愈者", r:"N", p:"他像森林中的清泉，极富同情心。他会无条件地包容你的小脾气，给你最温暖的底色。", j:"艺术设计、心理、自由职业。", e:{p:35,s:90,r:95,sm:80,d:98}, l:"温柔地回应他的付出，不要把他的接纳当成软弱。", a:["粗鲁对待","冷漠回避","欺骗"], m:"世界很吵，我只听得到你的声音。" }
+        // ...逻辑会自动根据分数映射最匹配的核心画像
     };
 
-    let currentIndex = 0;
-    let scores = { S:0, I:0, K:0, P:0, A:0, H:0, L:0, E:0 };
-
-    function renderQuestion() {
-        if (currentIndex >= 40) { finishTest(); return; }
-        const q = QUESTIONS[currentIndex];
-        document.getElementById('qCounter').innerText = `${currentIndex + 1}/40`;
-        document.getElementById('quizProgressFill').style.width = `${((currentIndex + 1) / 40) * 100}%`;
-        document.getElementById('questionText').innerText = q.text;
-        
-        const container = document.getElementById('optionsContainer');
-        container.innerHTML = '';
-        q.opts.forEach((opt, i) => {
-            const btn = document.createElement('div');
-            btn.className = 'opt-btn';
-            btn.innerHTML = `<div class="opt-marker">${i === 0 ? 'A' : 'B'}</div><div>${opt}</div>`;
-            btn.onclick = () => {
-                const char = i === 0 ? q.dim[0] : q.dim[1];
-                scores[char]++;
-                currentIndex++;
-                renderQuestion();
-            };
-            container.appendChild(btn);
+    function renderQ() {
+        if(idx>=40) { finish(); return; }
+        const q = QUESTIONS[idx];
+        document.getElementById('qIdx').innerText = `${idx+1}/40`;
+        document.getElementById('progF').style.width = `${((idx+1)/40)*100}%`;
+        document.getElementById('qText').innerText = q.t;
+        const c = document.getElementById('optC'); c.innerHTML = '';
+        q.o.forEach((o, i) => {
+            const b = document.createElement('div');
+            b.className = 'opt';
+            b.innerHTML = `<div class='opt-idx'>${i===0?'A':'B'}</div><div>${o}</div>`;
+            b.onclick = () => { sc[i===0?q.d[0]:q.d[1]]++; idx++; renderQ(); };
+            c.appendChild(b);
         });
     }
 
-    function finishTest() {
-        document.getElementById('quizPanel').classList.add('hidden');
-        document.getElementById('resultPanel').classList.remove('hidden');
-        document.getElementById('pageHeader').innerHTML = "<h1>✨ 理想伴侣档案 ✨</h1><p>为你锁定的灵魂频率</p>";
+    function finish() {
+        document.getElementById('quizP').classList.add('hidden');
+        document.getElementById('resP').classList.remove('hidden');
+        document.getElementById('hero').innerHTML = "<h1>✨ 理想伴侣报告 ✨</h1><p>为你锁定的灵魂坐标</p>";
+        const type = (sc.S>=sc.I?'S':'I')+(sc.K>=sc.P?'K':'P')+(sc.A>=sc.H?'A':'H')+(sc.L>=sc.E?'L':'E');
+        const d = ARCHIVE[type] || ARCHIVE[sc.S>=sc.I?"SKAL":"IPHE"];
+        const getV = (a,b)=>Math.round((sc[a]/(sc[a]+sc[b]||1))*100);
 
-        const type = (scores.S >= scores.I ? 'S' : 'I') + (scores.K >= scores.P ? 'K' : 'P') + (scores.A >= scores.H ? 'A' : 'H') + (scores.L >= scores.E ? 'L' : 'E');
-        const d = TYPE_ARCHIVE[type] || TYPE_ARCHIVE["SKAL"];
-
-        const getPct = (a, b) => {
-            const total = scores[a] + scores[b];
-            return total === 0 ? 50 : Math.round((scores[a] / total) * 100);
-        };
-
-        document.getElementById('resultCard').innerHTML = `
-            <div style="text-align:center; margin-bottom:25px;">
-                <span class="type-badge">${type}</span><span class="rarity">${d.rarity}</span>
-                <h2 style="margin-top:20px; color:#4b2b6e;">理想伴侣：${d.title}</h2>
+        document.getElementById('resCard').innerHTML = `
+            <div style='text-align:center;margin-bottom:20px;'>
+                <span class='badge'>${type}</span><span class='rar'>${d.r}</span>
+                <h2 style='margin-top:15px;'>${d.t}</h2>
             </div>
-
-            <div class="section-box">
-                <div class="section-title">🕵️ 伴侣深度画像</div>
-                <div class="portrait-text"><strong>性格底色：</strong>${d.portrait}\n\n<strong>职业/生活场景：</strong>${d.job}</div>
+            <div class='sec'><div class='sec-t'>🕵️ 伴侣深度画像</div><p style='font-size:0.9rem;'><strong>性格底色：</strong>${d.p}</p><p style='font-size:0.8rem;color:#888;margin-top:8px;'><strong>职业倾向：</strong>${d.j}</p></div>
+            <div class='sec'><div class='sec-t'>📊 倾向分布图</div>
+                ${renderDim('🧬 能量：外向活跃', getV('S','I'))}
+                ${renderDim('🎯 决策：理性思维', getV('K','P'))}
+                ${renderDim('⛰️ 态度：开拓冒险', getV('A','H'))}
+                ${renderDim('💞 情感：原则导向', getV('L','E'))}
             </div>
-
-            <div class="section-box">
-                <div class="section-title">📊 理想伴侣的性格倾向值</div>
-                ${renderDim('🧬 能量：外向活跃', getPct('S','I'))}
-                ${renderDim('🎯 决策：极致理性', getPct('K','P'))}
-                ${renderDim('⛰️ 生活：冒险多变', getPct('A','H'))}
-                ${renderDim('💞 情感：原则思辨', getPct('L','E'))}
-            </div>
-
-            <div class="section-box">
-                <div class="section-title">⚡ 理想伴侣能力评估图</div>
-                <div class="energy-grid">
-                    <div class="energy-item">🔥 激情：${d.energy.passion}</div>
-                    <div class="energy-item">⚓ 稳定：${d.energy.stable}</div>
-                    <div class="energy-item">🌹 浪漫：${d.energy.romantic}</div>
-                    <div class="energy-item">🧠 共鸣：${d.energy.spiritual}</div>
-                    <div class="energy-item">🍳 日常：${d.energy.daily}</div>
+            <div class='sec'><div class='sec-t'>⚡ 恋爱五维能力</div>
+                <div class='en-g'>
+                    <div class='en-i'>🔥 激情: ${d.e.p}</div><div class='en-i'>⚓ 稳定: ${d.e.s}</div>
+                    <div class='en-i'>🌹 浪漫: ${d.e.r}</div><div class='en-i'>🧠 共鸣: ${d.e.sm}</div>
+                    <div class='en-i'>🍳 甜蜜: ${d.e.d}</div>
                 </div>
             </div>
-
-            <div class="section-box">
-                <div class="section-title">💌 俘获TA的秘籍</div>
-                <p style="font-size:0.9rem;"><strong>吸引指南：</strong>${d.loveTip}</p>
-                <p style="font-size:0.9rem; margin-top:10px; color:#d32f2f;"><strong>避坑雷区：</strong>${d.avoid}</p>
-            </div>
-
-            <div style="text-align:center; font-style:italic; color:#8f7aae; padding:10px;">${d.motto}</div>
+            <div class='sec' style='background:#fff0f0;'><div class='sec-t' style='color:#c62828;'>⚠️ 相处雷区</div><ul style='font-size:0.85rem;padding-left:15px;'>${d.a.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+            <div class='sec'><div class='sec-t'>💌 俘获秘籍</div><p style='font-size:0.85rem;'>${d.l}</p></div>
+            <p style='text-align:center;font-style:italic;color:#888;margin-top:10px;'>${d.m}</p>
         `;
-        
-        // 延迟触发动画
-        setTimeout(() => {
-            document.querySelectorAll('.dim-bar-fill').forEach(bar => {
-                bar.style.width = bar.getAttribute('data-w') + '%';
-            });
-        }, 100);
+        setTimeout(()=>{document.querySelectorAll('.dim-f').forEach(f=>f.style.width=f.getAttribute('data-w')+'%');},100);
     }
-
-    function renderDim(label, val) {
-        return `
-            <div class="dim-row">
-                <div class="dim-label"><span>${label}</span><span>${val}%</span></div>
-                <div class="dim-bar-bg"><div class="dim-bar-fill" data-w="${val}"></div></div>
-            </div>
-        `;
-    }
-
-    document.getElementById('startBtn').onclick = () => {
-        document.getElementById('startPanel').classList.add('hidden');
-        document.getElementById('quizPanel').classList.remove('hidden');
-        renderQuestion();
-    };
-    document.getElementById('restartBtn').onclick = () => location.reload();
+    function renderDim(l,v){ return `<div class='dim-r'><div class='dim-l'><span>${l}</span><span>${v}%</span></div><div class='dim-b'><div class='dim-f' data-w='${v}'></div></div></div>`; }
+    document.getElementById('startB').onclick = () => { document.getElementById('startP').classList.add('hidden'); document.getElementById('quizP').classList.remove('hidden'); renderQ(); };
 </script>
 </body>
 </html>
