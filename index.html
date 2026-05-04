@@ -222,7 +222,7 @@
 </head>
 <body>
 <div class="app-container">
-    <div class="hero-header">
+    <div class="hero-header" id="pageHeader">
         <h1>✨ 心域共振 ✨</h1>
         <p>16型伴侣灵魂解码 · 深度完整版</p>
     </div>
@@ -231,7 +231,7 @@
         <div id="startPanel">
             <div style="text-align: center; margin: 40px 0 20px;">
                 <div style="font-size: 4rem;">💜</div>
-                <h2>你的灵魂引力场</h2>
+                <h2 style="margin: 16px 0 8px;">你的灵魂引力场</h2>
                 <p style="color: #5e4b79;">40个走心选择 · 解锁专属伴侣类型 + 完全恋爱指南</p>
             </div>
             <button class="btn-primary" id="startBtn">开始深度测评 →</button>
@@ -259,7 +259,7 @@
 </div>
 
 <script>
-    // 40题完整题库（与之前一致）
+    // ---------- 40题完整题库 ----------
     const QUESTIONS = [
         { dim: "SI", text: "假期来临，你更倾向哪种安排？", opts: ["参加热闹音乐节/派对", "宅家看书或刷剧"] },
         { dim: "SI", text: "遇到一群陌生朋友组局，你会？", opts: ["主动加入聊天", "安静观察"] },
@@ -303,102 +303,229 @@
         { dim: "LE", text: "伴侣忘纪念日更在意？", opts: ["不尊重约定", "爱被忽视"] }
     ];
 
+    // ---------- 16种类型深度数据（完整版）----------
     const TYPE_DEEP = {
-        "SKAL":{title:"皓月星穹·精神领袖型",tags:["高能领袖","策略家"],rarity:"SSR",desc:"外向·理性·冒险·逻辑 → 你拥有强大的气场与远见。",date:"高端社交酒会 / 密室复盘",loveTip:"给彼此独立闪耀的空间",avoid:["打断计划","过度依赖"],growth:["倾听情绪","享受无目的"],challenge:"做一件与效率无关的小事",energy:{passion:95,stable:70,romantic:60,spiritual:90,daily:65},motto:"我要的不是崇拜，是并肩改写规则。",ideal:"IPAL · SKHL",pressure:"IPHE"},
-        "SKAH":{title:"蝶梦引路人·热情催化者",tags:["社交太阳","共情先锋"],rarity:"SR",desc:"外向·理性·冒险·共情 → 浪漫与理性交织。",date:"即兴戏剧 / 海边落日",loveTip:"用逻辑解决，但先拥抱",avoid:["否定社交","冷战"],growth:["慢下来","不必总做气氛担当"],challenge:"不拍照的深度散步",energy:{passion:92,stable:55,romantic:85,spiritual:80,daily:70},motto:"热情是我的燃料，你是降落的原因。",ideal:"SPAH · IKAH",pressure:"IKHL"},
-        "SKHL":{title:"极光守护使·智慧引领者",tags:["稳重智者","秩序控"],rarity:"SR",desc:"外向·理性·安稳·逻辑 → 稳健中带着果断。",date:"美术馆导览 / 策略桌游",loveTip:"规划未来时留出即兴缝隙",avoid:["突然改计划","不守时"],growth:["允许小冒险","直接表达爱意"],challenge:"打破常规去个小众地点",energy:{passion:65,stable:92,romantic:70,spiritual:75,daily:88},motto:"秩序中开出温柔的花。",ideal:"SKAL · IKHL",pressure:"SPAH"},
-        "SKHE":{title:"暖风叙诗人·感性外交家",tags:["治愈系","社交蝴蝶"],rarity:"R",desc:"外向·理性·安稳·共情 → 天生的关系粘合剂。",date:"植物园漫步 / 烘焙课",loveTip:"主动制造惊喜小仪式",avoid:["敷衍分享","忽略仪式"],growth:["设温柔边界","接受被照顾"],challenge:"请伴侣帮个小忙并感谢",energy:{passion:70,stable:85,romantic:88,spiritual:70,daily:90},motto:"温柔是我最大的力量。",ideal:"SPHE · IKHE",pressure:"IKAL"},
-        "SPAL":{title:"赤焰探险家·破局革新者",tags:["自由魂","挑战者"],rarity:"UR",desc:"外向·感性·冒险·逻辑 → 自由不羁，用直觉冲浪。",date:"跳伞 / 音乐节VIP",loveTip:"尊重独立，也要做安全网",avoid:["控制行踪","否定冒险"],growth:["提前告知计划","给安全感"],challenge:"尝试对方喜欢的安静活动",energy:{passion:98,stable:30,romantic:75,spiritual:85,daily:40},motto:"生命是旷野，不是轨道。",ideal:"IPAL · SKAL",pressure:"IKHE"},
-        "SPAH":{title:"流光诗人·灵感缪斯",tags:["艺术灵魂","浪漫至死"],rarity:"SR",desc:"外向·感性·冒险·共情 → 极致浪漫体验家。",date:"画室共创 / 午夜观星",loveTip:"不要压抑浪漫，但要筛选能接住的人",avoid:["嘲笑理想主义","冷处理"],growth:["建情绪锚点","记录灵感"],challenge:"写一首短诗或小卡片",energy:{passion:90,stable:40,romantic:98,spiritual:92,daily:55},motto:"你是我的诗，我是你不必押韵的自由。",ideal:"SKAH · IPAH",pressure:"SKHL"},
-        "SPHL":{title:"静湖智士·温柔实干家",tags:["沉稳浪漫","生活美学家"],rarity:"R",desc:"外向·感性·安稳·逻辑 → 感性之下藏着逻辑骨架。",date:"逛家居店 / 徒步",loveTip:"用行动表达，也直接说出需求",avoid:["打乱收纳","承诺不兑现"],growth:["主动安排惊喜","直接表达爱意"],challenge:"做一顿完整晚饭",energy:{passion:65,stable:85,romantic:75,spiritual:70,daily:88},motto:"生活的质感在细节里。",ideal:"SKHE · IPHL",pressure:"SPAL"},
-        "SPHE":{title:"晨露治愈者·安恬共情体",tags:["阳光甜心","和平大使"],rarity:"N",desc:"外向·感性·安稳·共情 → 阳光般的调和者。",date:"野餐+拍立得 / 陶艺",loveTip:"善良要有边界",avoid:["大声争吵","忽冷忽热"],growth:["练习说‘不’","培养独立爱好"],challenge:"为自己安排独处半日",energy:{passion:60,stable:80,romantic:85,spiritual:65,daily:90},motto:"我的快乐很简单，只要你也在笑。",ideal:"SKHE · IKHE",pressure:"SPAL"},
-        "IKAL":{title:"隐世哲人·深邃洞察者",tags:["极简智慧","精神冒险"],rarity:"UR",desc:"内向·理性·冒险·逻辑 → 需要精神对手型恋人。",date:"古董书店 / 深夜辩论",loveTip:"保持智性张力",avoid:["强行社交","打断思考"],growth:["分享内心感受","尝试感性决策"],challenge:"只谈感受的对话",energy:{passion:70,stable:60,romantic:55,spiritual:98,daily:50},motto:"灵魂的共鸣，胜过千言万语。",ideal:"SKAL · IPAL",pressure:"SPHE"},
-        "IKAH":{title:"月光叙事者·沉静诗心",tags:["敏感诗人","深度聆听"],rarity:"SR",desc:"内向·理性·冒险·共情 → 冷淡外表炽热内心。",date:"民谣live / 书信日记",loveTip:"表达不拘形式，但要独特专注",avoid:["轻视敏感","秘密隐瞒"],growth:["主动袒露脆弱","用行动表达爱"],challenge:"手写一封信邮寄",energy:{passion:55,stable:65,romantic:92,spiritual:90,daily:60},motto:"你读懂我的沉默，我便赠你星河。",ideal:"SPAH · IPAH",pressure:"SKHL"},
-        "IKHL":{title:"磐石架构师·秩序领航员",tags:["逻辑基石","可靠伙伴"],rarity:"R",desc:"内向·理性·安稳·逻辑 → 极致理性，可靠支柱。",date:"科技馆+纪录片",loveTip:"偶尔放下逻辑，盲选礼物",avoid:["打乱计划","情绪化"],growth:["即兴回应情感","无目的相处"],challenge:"策划一次无议程约会",energy:{passion:45,stable:95,romantic:40,spiritual:70,daily:85},motto:"我的爱藏在兑现的承诺里。",ideal:"SKHL · IPHL",pressure:"SPAH"},
-        "IKHE":{title:"绒心守望者·忠实行者",tags:["忠诚陪伴","沉默守护"],rarity:"R",desc:"内向·理性·安稳·共情 → 安静但温柔坚定。",date:"一起做饭+电影",loveTip:"主动说出感谢",avoid:["忽视付出","突然改习惯"],growth:["定期表达需求","尝试带领"],challenge:"邀请朋友来家里做客",energy:{passion:40,stable:90,romantic:70,spiritual:75,daily:92},motto:"我的守护无声，但你一定感受得到。",ideal:"SKHE · IPHE",pressure:"SPAL"},
-        "IPAL":{title:"独行极客·奇想探险家",tags:["叛逆脑洞","自由实验"],rarity:"UR",desc:"内向·感性·冒险·逻辑 → 永远追求独特体验。",date:"废弃工厂探险 / 凌晨看海",loveTip:"尊重怪癖，建立暗号",avoid:["试图纠正独特","限制独处"],growth:["分享情绪","建规律习惯"],challenge:"带伴侣完成脑洞小计划",energy:{passion:88,stable:35,romantic:65,spiritual:85,daily:30},motto:"我的路自己画。",ideal:"SKAL · SPAL",pressure:"SKHE"},
-        "IPAH":{title:"幻梦织灵者·灵魂艺术者",tags:["超感者","柔软治愈"],rarity:"SR",desc:"内向·感性·冒险·共情 → 内在世界绚烂。",date:"沉浸式戏剧 / 森林冥想",loveTip:"为情绪建安全出口",avoid:["评价‘想太多’","强迫现实"],growth:["定期创作","三句话总结情绪"],challenge:"布置共创角",energy:{passion:75,stable:45,romantic:96,spiritual:95,daily:50},motto:"我的梦很大，但也留了位置给你。",ideal:"IKAH · SPAH",pressure:"SKHL"},
-        "IPHL":{title:"澄明隐者·冷思建筑师",tags:["内外反差","理性隐者"],rarity:"R",desc:"内向·感性·安稳·逻辑 → 理智和感性交织。",date:"科技展+清吧 / 露营",loveTip:"定期无目的日",avoid:["闯入空间","情感索取"],growth:["主动柔软","偶尔邀约"],challenge:"全权规划一次小旅行",energy:{passion:50,stable:85,romantic:60,spiritual:75,daily:80},motto:"最舒服的关系是不用刻意找话题。",ideal:"SKHL · IKHL",pressure:"SPAH"},
-        "IPHE":{title:"温谷牧心人·至纯治愈者",tags:["大地之爱","无条件接纳"],rarity:"N",desc:"内向·感性·安稳·共情 → 像森林深处的清泉。",date:"农场义工 / 安静茶馆",loveTip:"温和表达自己的需求",avoid:["欺骗","高强社交"],growth:["直接说‘我需要’","自我肯定清单"],challenge:"向伴侣提出一个具体需求",energy:{passion:35,stable:90,romantic:75,spiritual:80,daily:95},motto:"我用温柔拥抱世界，也请你温柔抱紧我。",ideal:"SKHE · IKHE",pressure:"SPAL"}
+        "SKAL": { title:"皓月星穹 · 精神领袖型", tags:["高能领袖","策略家","舞台磁场"], rarity:"SSR · 稀世之珍", desc:"外向·理性·冒险·逻辑 → 你拥有强大的气场与远见，在关系中既是开拓者又是架构师。",
+          date:"参加高端社交酒会 / 共同策划公益活动 / 密室逃脱+复盘推演", loveTip:"给彼此独立闪耀的空间，定期举行“战略会议”分享理想。",
+          avoid:["打断他的宏伟计划","过度依赖让他失去自由","在公众场合质疑他的决策"], growth:["学会倾听非战略性的情绪表达","偶尔享受无目的的陪伴"],
+          challenge:"本周主动为伴侣做一件与‘效率’无关的小事，比如手写一封信。", energy:{passion:95,stable:70,romantic:60,spiritual:90,daily:65},
+          motto:"“我要的不是崇拜，是能与我并肩改写规则的人。”", ideal:"IPAL · SKHL", pressure:"IPHE — 节奏差异大，需耐心磨合" },
+        "SKAH": { title:"蝶梦引路人 · 热情催化者", tags:["社交太阳","共情先锋","浪漫冒险家"], rarity:"SR · 璀璨之星", desc:"外向·理性·冒险·共情 → 浪漫与理性交织，敢闯敢为且极具感染力。",
+          date:"即兴戏剧工作坊 / 海边落日野餐+深夜畅谈 / 双人密室", loveTip:"用逻辑解决问题，但别忘了先拥抱。你需要一个既能跟随你冒险又能看穿你偶尔孤独的伴侣。",
+          avoid:["否定他的社交热情","长时间冷战","用逻辑压制他的感性决策"], growth:["练习慢下来，享受静态亲密","不必每次都做气氛担当"],
+          challenge:"安排一次‘不拍照、不打卡’的散步，只专注和伴侣深度聊天。", energy:{passion:92,stable:55,romantic:85,spiritual:80,daily:70},
+          motto:"“热情是我的燃料，而你是我愿意降落的原因。”", ideal:"SPAH · IKAH", pressure:"IKHL — 理性过冷可能压抑热情" },
+        "SKHL": { title:"极光守护使 · 智慧引领者", tags:["稳重智者","秩序控","优雅外交"], rarity:"SR", desc:"外向·理性·安稳·逻辑 → 你既有社交魅力又深谋远虑，稳健中带着果断。",
+          date:"美术馆导览+精致晚餐 / 双人策略桌游 / 周末近郊自驾", loveTip:"规划未来时留出即兴的缝隙，让伴侣感到被纳入你的蓝图。",
+          avoid:["突然改变长期计划","情感绑架","不守时"], growth:["偶尔允许计划外的小冒险","多直接表达爱意而非行动"],
+          challenge:"打破一次常规，带伴侣去一个你从未去过的小众地点。", energy:{passion:65,stable:92,romantic:70,spiritual:75,daily:88},
+          motto:"“秩序中开出温柔的花，是我能给你最好的未来。”", ideal:"SKAL · IKHL", pressure:"SPAH — 冒险冲动可能打乱你的安全节奏" },
+        "SKHE": { title:"暖风叙诗人 · 感性外交家", tags:["治愈系","社交蝴蝶","温柔规则"], rarity:"R", desc:"外向·理性·安稳·共情 → 热衷分享又善于安抚，是天生的关系粘合剂。",
+          date:"植物园漫步+手作花束 / 烘焙课程 / 书店咖啡馆探店", loveTip:"主动制造惊喜小仪式，你给予世界温暖，但也需要被同等回馈。",
+          avoid:["敷衍他的分享","长期忽略仪式感","情绪暴力"], growth:["学会设立温柔的边界","偶尔接受被照顾的角色"],
+          challenge:"主动请求伴侣帮你一个小忙，并真诚感谢。", energy:{passion:70,stable:85,romantic:88,spiritual:70,daily:90},
+          motto:"“温柔是我最大的力量，也请你温柔待我。”", ideal:"SPHE · IKHE", pressure:"IKAL — 过于抽离会让你感到被忽视" },
+        "SPAL": { title:"赤焰探险家 · 破局革新者", tags:["自由魂","挑战者","直觉狂"], rarity:"UR", desc:"外向·感性·冒险·逻辑 → 自由不羁，用直觉冲浪，以逻辑兜底。",
+          date:"跳伞/攀岩体验 / 音乐节VIP区 / 即兴公路旅行", loveTip:"对方必须尊重你的独立与疯狂，但也能在你疲惫时做你的安全网。",
+          avoid:["控制行踪","否定他的冒险精神","情绪勒索"], growth:["学会提前告知重要的人你的计划","给安全感一些空间"],
+          challenge:"和伴侣一起尝试一项你从未做过但对方喜欢的安静活动。", energy:{passion:98,stable:30,romantic:75,spiritual:85,daily:40},
+          motto:"“生命是旷野，不是轨道；陪我疯，也懂我归。”", ideal:"IPAL · SKAL", pressure:"IKHE — 保守安稳会让你感到窒息" },
+        "SPAH": { title:"流光诗人 · 灵感缪斯", tags:["艺术灵魂","情感洪流","浪漫至死"], rarity:"SR", desc:"外向·感性·冒险·共情 → 极致浪漫的体验家，情绪奔放而热烈。",
+          date:"画室共同创作 / 复古舞会 / 午夜天文台观星", loveTip:"不要压抑你的浪漫，但学会识别真正愿意接住你情绪的伴侣。",
+          avoid:["嘲笑他的理想主义","冷处理争吵","限制社交"], growth:["建立情绪锚点，避免过度依赖伴侣","记录灵感并分享"],
+          challenge:"为伴侣写一首短诗或者画一张小卡片。", energy:{passion:90,stable:40,romantic:98,spiritual:92,daily:55},
+          motto:"“你是我的诗，我是你不必押韵的自由。”", ideal:"SKAH · IPAH", pressure:"SKHL — 过度稳定可能扼杀灵感" },
+        "SPHL": { title:"静湖智士 · 温柔实干家", tags:["沉稳浪漫","细节控","生活美学家"], rarity:"R", desc:"外向·感性·安稳·逻辑 → 外放开朗却偏爱有序，感性之下藏着逻辑骨架。",
+          date:"逛家居店+烹饪晚餐 / 密室+复盘 / 周末徒步", loveTip:"用行动表达爱意，也请直接说出需求。",
+          avoid:["打乱他的收纳","承诺不兑现","情绪化指责"], growth:["主动安排一次惊喜约会","练习直接表达爱意"],
+          challenge:"做一顿完整的晚饭给对方，不点外卖。", energy:{passion:65,stable:85,romantic:75,spiritual:70,daily:88},
+          motto:"“生活的质感藏在每一个用心的细节里。”", ideal:"SKHE · IPHL", pressure:"SPAL — 冒险会让你焦虑" },
+        "SPHE": { title:"晨露治愈者 · 安恬共情体", tags:["阳光甜心","和平大使","知足常乐"], rarity:"N", desc:"外向·感性·安稳·共情 → 你是阳光般的调和者，温暖且善解人意。",
+          date:"野餐+拍立得 / 宠物咖啡馆 / 做陶艺", loveTip:"你的善良要有边界，选择珍惜你付出的细腻伴侣。",
+          avoid:["大声争吵","忽冷忽热","否定他的付出"], growth:["练习说‘不’","培养一个独立爱好"],
+          challenge:"为自己安排一次独处半日，做完全取悦自己的事。", energy:{passion:60,stable:80,romantic:85,spiritual:65,daily:90},
+          motto:"“我的快乐很简单，只要你也在笑。”", ideal:"SKHE · IKHE", pressure:"SPAL — 不安全感过强" },
+        "IKAL": { title:"隐世哲人 · 深邃洞察者", tags:["极简智慧","精神冒险","孤独思考者"], rarity:"UR", desc:"内向·理性·冒险·逻辑 → 独处中蓄力，思维如刃，向往精神冒险。",
+          date:"古董书店淘书 / 哲学讲座+深夜辩论 / 天文馆", loveTip:"你需要精神对手型恋人，保持智性张力。",
+          avoid:["强行拉入无效社交","打断深度思考","情感绑架"], growth:["分享内心感受而非只有观点","偶尔尝试感性决策"],
+          challenge:"和伴侣进行一场‘不论对错，只谈感受’的对话。", energy:{passion:70,stable:60,romantic:55,spiritual:98,daily:50},
+          motto:"“灵魂的共鸣，胜过千言万语。”", ideal:"SKAL · IPAL", pressure:"SPHE — 过于感性会让你疲惫" },
+        "IKAH": { title:"月光叙事者 · 沉静诗心", tags:["敏感诗人","深度聆听","梦幻浪漫"], rarity:"SR", desc:"内向·理性·冒险·共情 → 外表冷淡内心炽热，善于用文字或艺术表达。",
+          date:"Livehouse民谣专场 / 书信交换日记 / 夜间散步聊童年", loveTip:"表达爱意不拘形式，但要让对方感受到独特专注。",
+          avoid:["轻视他的敏感","秘密隐瞒","催促做决定"], growth:["主动袒露脆弱","用行动而非文字表达一次爱意"],
+          challenge:"手写一封真正的信，邮寄给伴侣。", energy:{passion:55,stable:65,romantic:92,spiritual:90,daily:60},
+          motto:"“你读懂我的沉默，我便赠你星河。”", ideal:"SPAH · IPAH", pressure:"SKHL — 理性外壳可能冻结你的浪漫" },
+        "IKHL": { title:"磐石架构师 · 秩序领航员", tags:["逻辑基石","可靠伙伴","原则至上"], rarity:"R", desc:"内向·理性·安稳·逻辑 → 极致理性，喜欢有序和规划。在亲密关系里是可靠支柱。",
+          date:"博物馆/科技馆 + 高分纪录片之夜", loveTip:"偶尔放下逻辑，盲选礼物或说句情话。",
+          avoid:["打乱计划表","情绪化无理取闹","不尊重时间"], growth:["练习即兴回应情感需求","每周安排一次无目的相处"],
+          challenge:"主动策划一次‘无议程’的约会，跟着感觉走。", energy:{passion:45,stable:95,romantic:40,spiritual:70,daily:85},
+          motto:"“我的爱，藏在每一个兑现的承诺里。”", ideal:"SKHL · IPHL", pressure:"SPAH — 情绪波动让你困惑" },
+        "IKHE": { title:"绒心守望者 · 忠实行者", tags:["忠诚陪伴","细节暖流","沉默守护"], rarity:"R", desc:"内向·理性·安稳·共情 → 安静但温柔坚定，暗中关心每一个人。",
+          date:"一起做饭+电影马拉松 / 逛超市买食材 / 拼图", loveTip:"主动说出喜欢和感谢，不要以为对方能自动感知。",
+          avoid:["忽视他的付出","突然改变习惯","大声斥责"], growth:["定期表达内心需求","尝试带领一次活动"],
+          challenge:"主动邀请朋友来家里做客，做一次主人。", energy:{passion:40,stable:90,romantic:70,spiritual:75,daily:92},
+          motto:"“我的守护无声，但你一定感受得到。”", ideal:"SKHE · IPHE", pressure:"SPAL — 不安定会让你焦虑" },
+        "IPAL": { title:"独行极客 · 奇想探险家", tags:["叛逆脑洞","非典型天才","自由实验"], rarity:"UR", desc:"内向·感性·冒险·逻辑 → 内心狂野，行动诡秘，永远追求独特体验。",
+          date:"废弃工厂探险 / 独立游戏创作 / 凌晨看海", loveTip:"互相尊重怪癖，建立专属暗号语言。",
+          avoid:["试图纠正他的独特","限制独处时间","嘲笑他的想法"], growth:["练习分享情绪而非仅想法","建立至少一个规律习惯"],
+          challenge:"带着伴侣完成你脑洞里的一个小计划。", energy:{passion:88,stable:35,romantic:65,spiritual:85,daily:30},
+          motto:"“常规是别人的地图，我的路自己画。”", ideal:"SKAL · SPAL", pressure:"SKHE — 传统模式让你窒息" },
+        "IPAH": { title:"幻梦织灵者 · 灵魂艺术者", tags:["超感者","梦境收集","柔软治愈"], rarity:"SR", desc:"内向·感性·冒险·共情 → 情感丰沛，内在世界绚烂。需要无限包容与好奇。",
+          date:"沉浸式戏剧 / 共同创作拼贴诗 / 森林冥想", loveTip:"为情绪建立安全出口，避免过度依赖伴侣消化所有感性。",
+          avoid:["评价他的情绪“想太多”","强迫现实规划","忽视艺术表达"], growth:["定期创作打卡","练习用三句话总结情绪"],
+          challenge:"布置一个‘共创角’，和伴侣一起完成一件小艺术品。", energy:{passion:75,stable:45,romantic:96,spiritual:95,daily:50},
+          motto:"“我的梦很大，但也留了一个位置给你。”", ideal:"IKAH · SPAH", pressure:"SKHL — 理性框架会禁锢灵感" },
+        "IPHL": { title:"澄明隐者 · 冷思建筑师", tags:["内外反差","理性隐者","舒适至上"], rarity:"R", desc:"内向·感性·安稳·逻辑 → 喜欢低调生活但内心戏丰富，理智和感性交织。",
+          date:"科技展+安静清吧 / 双人Switch / 露营观星", loveTip:"定期安排‘无目的日’，让关系保留弹性。",
+          avoid:["突然闯入个人空间","情感过度索取","临时变更约定"], growth:["主动分享内心柔软","偶尔主动邀约朋友"],
+          challenge:"组织一次两人小旅行，你全权负责所有规划。", energy:{passion:50,stable:85,romantic:60,spiritual:75,daily:80},
+          motto:"“最舒服的关系，是不用刻意找话题。”", ideal:"SKHL · IKHL", pressure:"SPAH — 过于戏剧化会让你疲惫" },
+        "IPHE": { title:"温谷牧心人 · 至纯治愈者", tags:["大地之爱","无条件接纳","温柔引力"], rarity:"N", desc:"内向·感性·安稳·共情 → 你像森林深处的清泉，极富同情心，对关系忠诚而深情。",
+          date:"农场义工体验 / 安静茶馆对坐 / 拼豆手工", loveTip:"学会温和表达自己的需求，你的温柔值得被同样珍视。",
+          avoid:["欺骗","高强度的社交要求","冷漠回避"], growth:["练习直接说‘我需要’","每周记录一件自我肯定的事"],
+          challenge:"向伴侣提出一个具体的需求，并明确表达。", energy:{passion:35,stable:90,romantic:75,spiritual:80,daily:95},
+          motto:"“我用温柔拥抱世界，也请你温柔抱紧我。”", ideal:"SKHE · IKHE", pressure:"SPAL — 不安全感会被放大" }
     };
 
-    let currentIndex = 0, answers = [], scores = { S:0, I:0, K:0, P:0, A:0, H:0, L:0, E:0 };
+    // 全局变量
+    let currentIndex = 0;
+    let scores = { S:0, I:0, K:0, P:0, A:0, H:0, L:0, E:0 };
+
     const startPanelDiv = document.getElementById('startPanel');
     const quizPanelDiv = document.getElementById('quizPanel');
     const resultPanelDiv = document.getElementById('resultPanel');
-    const startBtnEl = document.getElementById('startBtn');
-    const restartBtnEl = document.getElementById('restartBtn');
-    const questionTextEl = document.getElementById('questionText');
-    const optionsContainerEl = document.getElementById('optionsContainer');
+    const startBtn = document.getElementById('startBtn');
+    const restartBtn = document.getElementById('restartBtn');
+    const questionText = document.getElementById('questionText');
+    const optionsContainer = document.getElementById('optionsContainer');
     const qCounterSpan = document.getElementById('qCounter');
-    const progressFillEl = document.getElementById('quizProgressFill');
-    const resultCardEl = document.getElementById('resultCard');
-    const copyBtnEl = document.getElementById('copyTextBtn');
-    const shareBtnEl = document.getElementById('shareImgBtn');
+    const progressFill = document.getElementById('quizProgressFill');
+    const resultCardDiv = document.getElementById('resultCard');
+    const copyBtn = document.getElementById('copyTextBtn');
+    const shareBtn = document.getElementById('shareImgBtn');
 
-    function updateProgress() { let p = (currentIndex/40)*100; progressFillEl.style.width = p+"%"; qCounterSpan.innerText = `${currentIndex}/40`; }
+    function updateProgress() {
+        const percent = (currentIndex / QUESTIONS.length) * 100;
+        progressFill.style.width = percent + "%";
+        qCounterSpan.innerText = `${currentIndex} / ${QUESTIONS.length}`;
+    }
+
     function renderQuestion() {
-        if(currentIndex>=40) { finishTest(); return; }
-        let q = QUESTIONS[currentIndex];
-        questionTextEl.innerText = q.text;
-        optionsContainerEl.innerHTML = '';
-        q.opts.forEach((opt,idx)=>{
-            let btn = document.createElement('button'); btn.className='opt-btn';
-            btn.innerHTML = `<span class="opt-marker">${idx===0?'A':'B'}</span><span>${opt}</span>`;
-            btn.onclick = ()=>{
-                answers.push(idx);
-                let selected = idx===0 ? q.dim[0] : q.dim[1];
-                scores[selected]++;
+        if (currentIndex >= QUESTIONS.length) {
+            finishTest();
+            return;
+        }
+        const q = QUESTIONS[currentIndex];
+        questionText.innerText = q.text;
+        optionsContainer.innerHTML = '';
+        q.opts.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'opt-btn';
+            const markerSpan = document.createElement('span');
+            markerSpan.className = 'opt-marker';
+            markerSpan.innerText = idx === 0 ? 'A' : 'B';
+            const textSpan = document.createElement('span');
+            textSpan.innerText = opt;
+            btn.appendChild(markerSpan);
+            btn.appendChild(textSpan);
+            btn.addEventListener('click', () => {
+                const selectedVal = idx === 0 ? q.dim.charAt(0) : q.dim.charAt(1);
+                scores[selectedVal]++;
                 currentIndex++;
                 updateProgress();
-                if(currentIndex<40) renderQuestion(); else finishTest();
-            };
-            optionsContainerEl.appendChild(btn);
+                if (currentIndex < QUESTIONS.length) renderQuestion();
+                else finishTest();
+            });
+            optionsContainer.appendChild(btn);
         });
         updateProgress();
     }
+
     function finishTest() {
-        let code = (scores.S>=scores.I?'S':'I') + (scores.K>=scores.P?'K':'P') + (scores.A>=scores.H?'A':'H') + (scores.L>=scores.E?'L':'E');
-        let data = TYPE_DEEP[code] || TYPE_DEEP["IPHE"];
-        let siP = Math.max(scores.S,scores.I)/10*100, kpP = Math.max(scores.K,scores.P)/10*100, ahP = Math.max(scores.A,scores.H)/10*100, leP = Math.max(scores.L,scores.E)/10*100;
-        let siTxt = scores.S>=scores.I ? `外向·社交引力 (S ${scores.S} : I ${scores.I})` : `内向·深度自省 (I ${scores.I} : S ${scores.S})`;
-        let kpTxt = scores.K>=scores.P ? `理性·逻辑框架 (K ${scores.K} : P ${scores.P})` : `感性·情感共振 (P ${scores.P} : K ${scores.K})`;
-        let ahTxt = scores.A>=scores.H ? `开拓·冒险精神 (A ${scores.A} : H ${scores.H})` : `安稳·务实宁静 (H ${scores.H} : A ${scores.A})`;
-        let leTxt = scores.L>=scores.E ? `思辨·原则架构 (L ${scores.L} : E ${scores.E})` : `共情·温柔疗愈 (E ${scores.E} : L ${scores.L})`;
-        let energyHtml = `<div class="energy-grid"><div class="energy-item">🔥激情:${data.energy.passion}/100</div><div class="energy-item">⚓稳定:${data.energy.stable}/100</div><div class="energy-item">🌹浪漫:${data.energy.romantic}/100</div><div class="energy-item">🧠精神:${data.energy.spiritual}/100</div><div class="energy-item">🍳日常:${data.energy.daily}/100</div></div>`;
-        resultCardEl.innerHTML = `
-            <div style="display:flex;align-items:baseline;flex-wrap:wrap;"><span class="type-badge">${code}</span><span class="rarity">${data.rarity}</span></div>
-            <div class="tag-group">${data.tags.map(t=>`<span class="tag">#${t}</span>`).join('')}</div>
-            <div><strong>${data.title}</strong><br>${data.desc}</div>
-            <div class="dimension-bar"><div class="dim-label"><span>🧬 ${siTxt}</span><span>${Math.round(siP)}%</span></div><div class="bar-line"><div class="bar-fill" style="width:${siP}%"></div></div></div>
-            <div class="dimension-bar"><div class="dim-label"><span>🎯 ${kpTxt}</span><span>${Math.round(kpP)}%</span></div><div class="bar-line"><div class="bar-fill" style="width:${kpP}%;background:#9b7bcb"></div></div></div>
-            <div class="dimension-bar"><div class="dim-label"><span>⛰️ ${ahTxt}</span><span>${Math.round(ahP)}%</span></div><div class="bar-line"><div class="bar-fill" style="width:${ahP}%;background:#b694e6"></div></div></div>
-            <div class="dimension-bar"><div class="dim-label"><span>💞 ${leTxt}</span><span>${Math.round(leP)}%</span></div><div class="bar-line"><div class="bar-fill" style="width:${leP}%;background:#ccb0ff"></div></div></div>
-            <div class="info-grid"><div class="info-title">🌸约会灵感</div>${data.date}</div>
-            <div class="info-grid"><div class="info-title">💌爱情心法</div>${data.loveTip}</div>
-            <div class="info-grid"><div class="info-title">⚠️相处雷区</div><ul>${data.avoid.map(a=>`<li>${a}</li>`).join('')}</ul></div>
-            <div class="info-grid"><div class="info-title">📈成长建议</div><ul>${data.growth.map(g=>`<li>${g}</li>`).join('')}</ul></div>
-            <div class="info-grid"><div class="info-title">🎯月度小挑战</div>${data.challenge}</div>
-            <div class="info-grid"><div class="info-title">⚡恋爱五维能量图</div>${energyHtml}</div>
-            <div class="info-grid"><div class="info-title">📜专属情话/座右铭</div>“${data.motto}”</div>
-            <div class="info-grid" style="background:#eef3ff;"><div class="info-title">💞最佳配对</div>${data.ideal}<br><div class="info-title" style="margin-top:8px;">⚡压力配对</div>${data.pressure}</div>
-        `;
-        startPanelDiv.classList.add('hidden'); quizPanelDiv.classList.add('hidden'); resultPanelDiv.classList.remove('hidden');
-        document.querySelector('.hero-header h1').innerText = "✨ 灵魂解析报告 ✨";
-        document.querySelector('.hero-header p').innerText = "你的专属恋爱指南";
+        try {
+            const dimS_I = scores.S >= scores.I ? 'S' : 'I';
+            const dimK_P = scores.K >= scores.P ? 'K' : 'P';
+            const dimA_H = scores.A >= scores.H ? 'A' : 'H';
+            const dimL_E = scores.L >= scores.E ? 'L' : 'E';
+            const typeCode = dimS_I + dimK_P + dimA_H + dimL_E;
+            const data = TYPE_DEEP[typeCode] || TYPE_DEEP["IPHE"];
+
+            // 计算百分比
+            const siP = Math.max(scores.S, scores.I) / 10 * 100;
+            const kpP = Math.max(scores.K, scores.P) / 10 * 100;
+            const ahP = Math.max(scores.A, scores.H) / 10 * 100;
+            const leP = Math.max(scores.L, scores.E) / 10 * 100;
+            const siTxt = scores.S >= scores.I ? `外向·社交引力 (S ${scores.S} : I ${scores.I})` : `内向·深度自省 (I ${scores.I} : S ${scores.S})`;
+            const kpTxt = scores.K >= scores.P ? `理性·逻辑框架 (K ${scores.K} : P ${scores.P})` : `感性·情感共振 (P ${scores.P} : K ${scores.K})`;
+            const ahTxt = scores.A >= scores.H ? `开拓·冒险精神 (A ${scores.A} : H ${scores.H})` : `安稳·务实宁静 (H ${scores.H} : A ${scores.A})`;
+            const leTxt = scores.L >= scores.E ? `思辨·原则架构 (L ${scores.L} : E ${scores.E})` : `共情·温柔疗愈 (E ${scores.E} : L ${scores.L})`;
+
+            const energyHtml = `
+                <div class="energy-grid">
+                    <div class="energy-item">🔥 激情指数: ${data.energy.passion}/100</div>
+                    <div class="energy-item">⚓ 稳定指数: ${data.energy.stable}/100</div>
+                    <div class="energy-item">🌹 浪漫指数: ${data.energy.romantic}/100</div>
+                    <div class="energy-item">🧠 精神共鸣指数: ${data.energy.spiritual}/100</div>
+                    <div class="energy-item">🍳 日常甜蜜指数: ${data.energy.daily}/100</div>
+                </div>
+            `;
+
+            const fullHtml = `
+                <div style="display:flex; align-items:baseline; flex-wrap:wrap;"><span class="type-badge">${typeCode}</span><span class="rarity">${data.rarity}</span></div>
+                <div class="tag-group">${data.tags.map(t => `<span class="tag">#${t}</span>`).join('')}</div>
+                <div><strong>${data.title}</strong><br>${data.desc}</div>
+                <div class="dimension-bar"><div class="dim-label"><span>🧬 ${siTxt}</span><span>${Math.round(siP)}%</span></div><div class="bar-line"><div class="bar-fill" style="width:${siP}%;"></div></div></div>
+                <div class="dimension-bar"><div class="dim-label"><span>🎯 ${kpTxt}</span><span>${Math.round(kpP)}%</span></div><div class="bar-line"><div class="bar-fill" style="width:${kpP}%; background:#9b7bcb;"></div></div></div>
+                <div class="dimension-bar"><div class="dim-label"><span>⛰️ ${ahTxt}</span><span>${Math.round(ahP)}%</span></div><div class="bar-line"><div class="bar-fill" style="width:${ahP}%; background:#b694e6;"></div></div></div>
+                <div class="dimension-bar"><div class="dim-label"><span>💞 ${leTxt}</span><span>${Math.round(leP)}%</span></div><div class="bar-line"><div class="bar-fill" style="width:${leP}%; background:#ccb0ff;"></div></div></div>
+                <div class="info-grid"><div class="info-title">🌸 约会灵感</div>${data.date}</div>
+                <div class="info-grid"><div class="info-title">💌 爱情心法</div>${data.loveTip}</div>
+                <div class="info-grid"><div class="info-title">⚠️ 相处雷区</div><ul>${data.avoid.map(a => `<li>${a}</li>`).join('')}</ul></div>
+                <div class="info-grid"><div class="info-title">📈 成长建议</div><ul>${data.growth.map(g => `<li>${g}</li>`).join('')}</ul></div>
+                <div class="info-grid"><div class="info-title">🎯 月度小挑战</div>${data.challenge}</div>
+                <div class="info-grid"><div class="info-title">⚡ 恋爱五维能量图</div>${energyHtml}</div>
+                <div class="info-grid"><div class="info-title">📜 专属情话/座右铭</div>${data.motto}</div>
+                <div class="info-grid" style="background:#eef3ff;"><div class="info-title">💞 最佳配对</div>${data.ideal}<br><div class="info-title" style="margin-top:8px;">⚡ 压力配对</div>${data.pressure}</div>
+            `;
+            resultCardDiv.innerHTML = fullHtml;
+            startPanelDiv.classList.add('hidden');
+            quizPanelDiv.classList.add('hidden');
+            resultPanelDiv.classList.remove('hidden');
+            document.querySelector('.hero-header h1').innerText = "✨ 灵魂解析报告 ✨";
+            document.querySelector('.hero-header p').innerText = "你的专属恋爱指南";
+        } catch (err) {
+            console.error(err);
+            resultCardDiv.innerHTML = `<div class="error-message">⚠️ 生成报告时出错: ${err.message}<br>请刷新页面重试。</div>`;
+            startPanelDiv.classList.add('hidden');
+            quizPanelDiv.classList.add('hidden');
+            resultPanelDiv.classList.remove('hidden');
+        }
     }
+
     function resetAndStart() {
-        currentIndex=0; answers=[]; scores={S:0,I:0,K:0,P:0,A:0,H:0,L:0,E:0};
-        startPanelDiv.classList.remove('hidden'); quizPanelDiv.classList.add('hidden'); resultPanelDiv.classList.add('hidden');
+        currentIndex = 0;
+        scores = { S:0, I:0, K:0, P:0, A:0, H:0, L:0, E:0 };
+        startPanelDiv.classList.remove('hidden');
+        quizPanelDiv.classList.add('hidden');
+        resultPanelDiv.classList.add('hidden');
         document.querySelector('.hero-header h1').innerText = "✨ 心域共振 ✨";
         document.querySelector('.hero-header p').innerText = "16型伴侣灵魂解码 · 深度完整版";
-        updateProgress(); renderQuestion();
+        updateProgress();
+        renderQuestion();
     }
-    startBtnEl.onclick = resetAndStart;
-    restartBtnEl.onclick = resetAndStart;
-    copyBtnEl.onclick = () => { navigator.clipboard.writeText(resultCardEl.innerText).then(()=>alert('✅报告已复制')).catch(()=>alert('复制失败')); };
-    shareBtnEl.onclick = () => alert('📸 请使用手机/电脑截图保存分享');
-    updateProgress();
+
+    // 复制摘要
+    copyBtn.addEventListener('click', () => {
+        const text = resultCardDiv.innerText;
+        navigator.clipboard.writeText(text).then(() => alert('✅ 报告已复制，快去分享吧！')).catch(() => alert('复制失败，可手动截图'));
+    });
+    // 截图分享：提示用户使用系统截图
+    shareBtn.addEventListener('click', () => {
+        alert('📸 请使用手机/电脑自带的截图功能保存报告图片，分享给朋友吧！');
+    });
+
+    startBtn.addEventListener('click', resetAndStart);
+    restartBtn.addEventListener('click', resetAndStart);
 </script>
 </body>
 </html>
